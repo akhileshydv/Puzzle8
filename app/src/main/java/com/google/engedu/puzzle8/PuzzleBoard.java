@@ -153,6 +153,8 @@ public class PuzzleBoard {
         return manhattanDistance+steps;
     }
     public boolean check(PuzzleBoard board){
+    	 if(board==null)
+    	 	return false;
          int len=this.tiles.size();
          boolean flag=true;
          for(int i=0;i<len;i++){
