@@ -145,16 +145,7 @@ public class PuzzleBoardView extends View {
               //Log.d("BOOLEANV",""+cBoard.check(cBoard));
               while(it.hasNext()){
                      PuzzleBoard board=it.next();
-                     boolean flag=false;
-                     Iterator<PuzzleBoard> it2=queue.iterator();
-                     while(it.hasNext()){
-                           PuzzleBoard qBoard=it.next();
-                           if(qBoard.check(board)){
-                               flag=true;
-                               break;
-                           }
-                     }
-                     if(flag)
+                     if(!board.check(cBoard.previousBoard))
                          queue.add(board);
 
               }
