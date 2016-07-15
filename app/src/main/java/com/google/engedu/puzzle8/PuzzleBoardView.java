@@ -86,7 +86,7 @@ public class PuzzleBoardView extends View {
         return super.onTouchEvent(event);
     }
 
-    public void solve() {
+    /*public void solve() {
         Log.d("DEMO1","LOOP");
         PuzzleBoardComparator comparator=new PuzzleBoardComparator();
         Log.d("DEMO2","LOOP");
@@ -117,5 +117,48 @@ public class PuzzleBoardView extends View {
                    queue.add(it.next());
               }
         }
+    }*/
+    public void solve() {
+        PuzzleBoardComparator comparator=new PuzzleBoardComparator();
+        PriorityQueue<PuzzleBoard> queue=new PriorityQueue<>(10,comparator);
+        HashSet<PuzzleBoard> visited=new HashSet<>();
+        puzzleBoard.steps=0;
+        puzzleBoard.previousBoard=null;
+        queue.add(puzzleBoard);
+        while(!queue.isEmpty()){
+              Log.d("CHECKPOINT"," "+queue.size());
+              PuzzleBoard cBoard=queue.remove();
+              if(cBoard.resolved()){
+                   ArrayList<PuzzleBoard> solution=new ArrayList<>();
+                   while(cBoard.getParent()!=null){
+                         solution.add(cBoard);
+                         cBoard=cBoard.getParent();
+                   }
+                   solution.add(cBoard);
+                   Collections.reverse(solution);
+                   animation=solution;
+                   break;
+              }
+              ArrayList<PuzzleBoard> neigh;
+              neigh=cBoard.neighbours();
+              Iterator<PuzzleBoard> it=neigh.iterator();
+              //Log.d("BOOLEANV",""+cBoard.check(cBoard));
+              while(it.hasNext()){
+                     PuzzleBoard board=it.next();
+                     boolean flag=false;
+                     Iterator<PuzzleBoard> it2=queue.iterator();
+                     while(it.hasNext()){
+                           PuzzleBoard qBoard=it.next();
+                           if(qBoard.check(board)){
+                               flag=true;
+                               break;
+                           }
+                     }
+                     if(flag)
+                         queue.add(board);
+
+              }
+        }
+
     }
 }
