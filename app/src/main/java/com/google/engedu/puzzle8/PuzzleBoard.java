@@ -152,5 +152,30 @@ public class PuzzleBoard {
         }
         return manhattanDistance+steps;
     }
+    public boolean check(PuzzleBoard board){
+         int len=this.tiles.size();
+         boolean flag=true;
+         for(int i=0;i<len;i++){
+               if(this.tiles.get(i)==null&&board.tiles.get(i)==null)
+                   continue;
+               if(this.tiles.get(i)!=null&&board.tiles.get(i)==null){
+                   flag=false;
+                   break;
+               }
+               if(this.tiles.get(i)==null&&board.tiles.get(i)!=null){
+                   flag=false;
+                   break;
+               }
+               if(this.tiles.get(i)!=null&&board.tiles.get(i)!=null){
+                   //Log.d("VALUES",""+this.tiles.get(i).getNumber()+" "+board.tiles.get(i).getNumber());
+                   if(this.tiles.get(i).getNumber()!=board.tiles.get(i).getNumber()){
+                       flag=false;
+                       break;
+                   }
+               }
+
+         }
+         return flag;
+    }
 
 }
